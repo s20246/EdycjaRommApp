@@ -3,11 +3,11 @@ package com.example.roomapp.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "user_table")
-data class User(
+@Entity(tableName = "product_table")
+data class Product(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val firstName: String,
-    val lastName: String,
-    val age: Int
+    val name: String,
+    val location: String,
+    val photoURI: String
 )

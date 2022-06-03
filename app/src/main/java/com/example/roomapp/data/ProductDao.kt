@@ -7,12 +7,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface UserDao {
+interface ProductDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addUser(user: User)
+    suspend fun addProduct(product: Product)
 
-    @Query("SELECT * FROM user_table ORDER BY id ASC")
-    fun readAllData(): LiveData<List<User>>
+    @Query("SELECT * FROM product_table ORDER BY id ASC")
+    fun readAllData(): LiveData<List<Product>>
 
 }
