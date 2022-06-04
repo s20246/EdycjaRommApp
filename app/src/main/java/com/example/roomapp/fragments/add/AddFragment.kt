@@ -11,20 +11,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.location.LocationManagerCompat.isLocationEnabled
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.roomapp.MainActivity
 import com.example.roomapp.R
+import com.example.roomapp.data.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
-import kotlinx.android.synthetic.main.fragment_list.view.*
 import java.util.*
 
 
 class AddFragment : Fragment() {
 
-
+   // private lateinit var mProductViewModel: ProductViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,14 +30,16 @@ class AddFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add, container, false)
 
+       // mProductViewModel=ViewModelProvider(this).get(ProductViewModel::class.java)
+
         view.buttonLocation.setOnClickListener {
-            // wykonuje sie get location i wpisuje w textview
            getLocation()
-           // editTextLocation.setText("")
+        }
+        view.takePhoto.setOnClickListener {
+            //zrob zdjecie, zapisz do galerii, zapisz scieżkę do text view
         }
         return view
     }
-
 
 
     @SuppressLint("MissingPermission", "SetTextI18n")
@@ -52,13 +52,12 @@ class AddFragment : Fragment() {
                         val geocoder = Geocoder((activity as MainActivity), Locale.getDefault())
                         val list: List<Address> =
                             geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                        /*mainBinding.apply {
-                            tvLatitude.text = "Latitude\n${list[0].latitude}"
-                            tvLongitude.text = "Longitude\n${list[0].longitude}"
-                            tvCountryName.text = "Country Name\n${list[0].countryName}"
-                            tvLocality.text = "Locality\n${list[0].locality}"
-                            tvAddress.text = "Address\n${list[0].getAddressLine(0)}"
-                        }*/
+                        //zmiana textView
+                        /*"Latitude\n${list[0].latitude}"
+                        "Longitude\n${list[0].longitude}"
+                        "Country Name\n${list[0].countryName}"
+                        "Locality\n${list[0].locality}"
+                        "Address\n${list[0].getAddressLine(0)}"*/
                         editTextLocation.setText("Latitude\n${list[0].latitude}")
                     }
                 }
@@ -71,5 +70,10 @@ class AddFragment : Fragment() {
             (activity as MainActivity).requestPermissions()
         }
     }
+    private fun insertDataToDatabase(){
 
+        val name = editTextName.text.toString()
+        val location = editTextLocation.text.toString()
+        val photoPath = photoPath.text.toString()
+    }
 }
